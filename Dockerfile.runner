@@ -1,0 +1,20 @@
+FROM n8nio/runners:1.121.0
+
+COPY n8n-task-runners.json /etc/n8n-task-runners.json
+
+USER root
+
+RUN sed -i 's/\r//' /etc/n8n-task-runners.json && \
+    cd /opt/runners/task-runner-python && \
+    uv add pandas soccerdata && \
+    chown -R runner:runner /opt/runners/task-runner-python && \
+    mkdir -p /home/runner/.n8n/runners_work && \
+    mkdir -p /home/runner/.cache/soccerdata && \
+    chown -R runner:runner /home/runner
+
+ENV N8N_RUNNERS_CONFIG_PATH=/etc/n8n-task-runners.json
+ENV HOME=/home/runner
+ENV PYTHONPATH=/opt/runners/task-runner-python
+
+USER runner
+WORKDIR /home/runner/.n8n/runners_work
