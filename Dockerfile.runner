@@ -4,6 +4,9 @@ COPY n8n-task-runners.json /etc/n8n-task-runners.json
 
 USER root
 
+# Instalar Chromium para soccerdata (scraping con Selenium)
+RUN apk add --no-cache chromium chromium-chromedriver
+
 RUN sed -i 's/\r//' /etc/n8n-task-runners.json && \
     UV_HTTP_TIMEOUT=120 uv pip install --python /opt/runners/task-runner-python/.venv/bin/python pandas soccerdata && \
     chown -R runner:runner /opt/runners/task-runner-python && \
@@ -14,6 +17,8 @@ RUN sed -i 's/\r//' /etc/n8n-task-runners.json && \
 ENV N8N_RUNNERS_CONFIG_PATH=/etc/n8n-task-runners.json
 ENV HOME=/home/runner
 ENV PYTHONPATH=/opt/runners/task-runner-python
+ENV CHROME_BIN=/usr/bin/chromium-browser
+ENV CHROMEDRIVER_PATH=/usr/bin/chromedriver
 
 USER runner
 WORKDIR /home/runner/.n8n/runners_work
