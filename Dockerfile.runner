@@ -5,8 +5,7 @@ COPY n8n-task-runners.json /etc/n8n-task-runners.json
 USER root
 
 RUN sed -i 's/\r//' /etc/n8n-task-runners.json && \
-    cd /opt/runners/task-runner-python && \
-    UV_HTTP_TIMEOUT=120 uv add pandas soccerdata && \
+    /opt/runners/task-runner-python/.venv/bin/pip install --no-cache-dir pandas soccerdata && \
     chown -R runner:runner /opt/runners/task-runner-python && \
     mkdir -p /home/runner/.n8n/runners_work && \
     mkdir -p /home/runner/.cache/soccerdata && \
