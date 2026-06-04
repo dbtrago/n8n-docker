@@ -30,6 +30,7 @@ services:
       - N8N_RUNNERS_AUTH_TOKEN=${N8N_RUNNERS_AUTH_TOKEN}
       - N8N_RUNNERS_TASK_REQUEST_TIMEOUT=120
       - NODE_OPTIONS=--max-old-space-size=512
+      - N8N_CORS_ALLOWED_ORIGINS=https://mrdani.duckdns.org
     volumes:
       - n8n_data:/home/node/.n8n
     deploy:
