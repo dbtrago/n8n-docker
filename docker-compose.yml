@@ -51,6 +51,7 @@ services:
       - N8N_RUNNERS_AUTH_TOKEN=${N8N_RUNNERS_AUTH_TOKEN}
       - N8N_RUNNERS_STDLIB_ALLOW=*
       - N8N_RUNNERS_EXTERNAL_ALLOW=*
+      - N8N_RUNNERS_TASK_TIMEOUT=120
       - HOME=/home/runner
     deploy:
       resources:
